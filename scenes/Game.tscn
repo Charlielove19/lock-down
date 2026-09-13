@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://chglxw5gynf2e"]
+
+[ext_resource type="Script" uid="uid://c1a2bs4hnphvx" path="res://scripts/game.gd" id="1_cpr0p"]
+[ext_resource type="PackedScene" uid="uid://cnpaojfl3fuuw" path="res://scenes/Ball.tscn" id="1_ibkli"]
+[ext_resource type="PackedScene" uid="uid://bci4m5pfa4f34" path="res://scenes/Wall.tscn" id="2_qbsmt"]
+[ext_resource type="Script" uid="uid://m4oipoqk3t8o" path="res://scripts/wall.gd" id="4_78awf"]
+
+[node name="Game" type="Node2D" unique_id=516437375]
+script = ExtResource("1_cpr0p")
+
+[node name="Ball" parent="." unique_id=502527504 instance=ExtResource("1_ibkli")]
+
+[node name="Wall" parent="." unique_id=726872955 instance=ExtResource("2_qbsmt")]
+position = Vector2(115, 128)
+script = ExtResource("4_78awf")
