@@ -1,21 +1,21 @@
 extends StaticBody2D
+@export var wall_data: WallData
 
-@export var max_health: int =3
-@export var health: int
-@export var money_per_hit: int = 1
-@export var cost = 2
+var health: int
+
+
 @export var sprite: Sprite2D
 @export var collision_shape: CollisionShape2D
+@export var placement_area: Area2D
 
 func _ready() -> void:
-	health = max_health
+	health = wall_data.max_health
 func hit(damage: int):
 	health -= damage
 	update_damage_visual()
 	if health <=0:
 		queue_free()
-	return money_per_hit
+	return wall_data.money_per_hit
 func update_damage_visual():
-	var health_ratio = float(health)/float(max_health)
-	var sprite_index
+	var health_ratio = float(health)/float(wall_data.max_health)
 	sprite.modulate = Color.RED.lerp(Color.GREEN, health_ratio)

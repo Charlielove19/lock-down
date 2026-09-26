@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WallData" format=3 uid="uid://de7kxvb7slkqq"]
+
+[ext_resource type="Script" uid="uid://cu4idgddy6of7" path="res://scripts/wall_data.gd" id="1_xjxta"]
+
+[resource]
+script = ExtResource("1_xjxta")
+wall_name = "Brittle"
+cost = 1.0
+money_per_hit = 3.0
+max_health = 2
+width = Vector2(4, 0.5)
+metadata/_custom_type_script = "uid://cu4idgddy6of7"

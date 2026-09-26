@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="WallData" format=3 uid="uid://er57vi0txen0"]
+
+[ext_resource type="Script" uid="uid://cu4idgddy6of7" path="res://scripts/wall_data.gd" id="1_m7854"]
+
+[resource]
+script = ExtResource("1_m7854")
+wall_name = "Basic"
+cost = 2.0
+money_per_hit = 1.0
+max_health = 5
+metadata/_custom_type_script = "uid://cu4idgddy6of7"

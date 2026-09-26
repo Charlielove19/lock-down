@@ -2,13 +2,24 @@
 
 [ext_resource type="Script" uid="uid://c1a2bs4hnphvx" path="res://scripts/game.gd" id="1_cpr0p"]
 [ext_resource type="PackedScene" uid="uid://cnpaojfl3fuuw" path="res://scenes/Ball.tscn" id="1_ibkli"]
-[ext_resource type="PackedScene" uid="uid://bci4m5pfa4f34" path="res://scenes/Wall.tscn" id="2_qbsmt"]
+[ext_resource type="PackedScene" uid="uid://dl4wu287ysq0h" path="res://scenes/Wall.tscn" id="2_qbsmt"]
+[ext_resource type="PackedScene" uid="uid://bj5clrmyfcmpx" path="res://scenes/WallButton.tscn" id="3_400sg"]
+[ext_resource type="Script" uid="uid://cu4idgddy6of7" path="res://scripts/wall_data.gd" id="3_kiw3p"]
+[ext_resource type="Resource" uid="uid://er57vi0txen0" path="res://data/walls/wall_basic.tres" id="4_400sg"]
+[ext_resource type="Resource" uid="uid://de7kxvb7slkqq" path="res://data/walls/wall_brittle.tres" id="5_g4kob"]
+[ext_resource type="Resource" uid="uid://n77kqsav072o" path="res://data/walls/wall_strong.tres" id="6_qy1jj"]
 
-[node name="Game" type="Node2D" unique_id=516437375 node_paths=PackedStringArray("money_label", "wall_button")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u2d4l"]
+size = Vector2(158, 123)
+
+[node name="Game" type="Node2D" unique_id=516437375 node_paths=PackedStringArray("money_label", "wall_menu")]
 script = ExtResource("1_cpr0p")
 money_label = NodePath("UI/Money")
+money = 5
 wall_scene = ExtResource("2_qbsmt")
-wall_button = NodePath("UI/WallButton")
+wall_button_scene = ExtResource("3_400sg")
+wall_datas = Array[ExtResource("3_kiw3p")]([ExtResource("4_400sg"), ExtResource("5_g4kob"), ExtResource("6_qy1jj")])
+wall_menu = NodePath("UI/WallMenu")
 
 [node name="Ball" parent="." unique_id=502527504 instance=ExtResource("1_ibkli")]
 position = Vector2(558, 300)
@@ -27,22 +38,26 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Money: 10"
 
-[node name="WallButton" type="Button" parent="UI" unique_id=1610556833]
-anchors_preset = -1
-anchor_left = 0.80700004
+[node name="WallMenu" type="VBoxContainer" parent="UI" unique_id=440836456]
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 0.120000005
-offset_left = 0.3359375
-offset_bottom = 0.23999786
+offset_left = -158.0
+offset_bottom = 122.0
 grow_horizontal = 0
-grow_vertical = 2
-text = "Wall £2"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="UI/WallMenu" unique_id=1413849177]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/WallMenu/StaticBody2D" unique_id=1575690781]
+position = Vector2(79, 61.5)
+shape = SubResource("RectangleShape2D_u2d4l")
 
 [node name="Wall" parent="." unique_id=726872955 instance=ExtResource("2_qbsmt")]
-position = Vector2(564, 425)
+position = Vector2(551, 396)
+wall_data = ExtResource("4_400sg")
 
-[node name="Wall2" parent="." unique_id=1877070289 instance=ExtResource("2_qbsmt")]
-position = Vector2(552, 194)
-
-[connection signal="button_down" from="UI/WallButton" to="." method="_on_wall_button_button_down"]
-[connection signal="button_up" from="UI/WallButton" to="." method="_on_wall_button_button_up"]
+[node name="Wall2" parent="." unique_id=902963933 instance=ExtResource("2_qbsmt")]
+position = Vector2(559, 198)
+wall_data = ExtResource("4_400sg")
