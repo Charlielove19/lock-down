@@ -8,4 +8,5 @@ wall_name = "Basic"
 cost = 2.0
 money_per_hit = 1.0
 max_health = 5
+size = Vector2(3, 0.5)
 metadata/_custom_type_script = "uid://cu4idgddy6of7"

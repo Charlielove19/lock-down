@@ -5,4 +5,4 @@ extends Resource
 @export var cost: float
 @export var money_per_hit: float
 @export var max_health: int
-@export var width: Vector2
+@export var size: Vector2

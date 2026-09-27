@@ -1,8 +1,10 @@
 extends Node2D
-
+@export var interactables: Node2D
+#money variables
 @export var money_label: Label
 @export var money = 4
 
+#wall variables
 @export var wall_scene: PackedScene
 @export var wall_button_scene: PackedScene
 @export var wall_datas: Array[WallData]
@@ -18,8 +20,30 @@ var diagonal_grace:= 0.0
 var cant_drop: bool
 
 
+#UI
+@export var game_UI: Control
+@export var main_menu:Panel
+@export var game_over_menu:Panel
+@export var ball_scene: PackedScene
 
+func start_game():
+	main_menu.visible = false
+	game_over_menu.visible = false
+	game_UI.visible = true
+	var ball = ball_scene.instantiate()
+	ball.position = get_viewport_rect().get_center()
+	interactables.add_child(ball)
+func game_over():
+	game_over_menu.visible = true
+	clear_game()
+func clear_game():
+	game_UI.visible = false
+	for child in interactables.get_children():
+		child.queue_free()
 func _ready():
+	main_menu.visible = true
+	game_over_menu.visible = false
+	game_UI.visible = false
 	update_money_display()
 	for wall_data in wall_datas:
 		var button = wall_button_scene.instantiate()
@@ -27,7 +51,6 @@ func _ready():
 		button.text = wall_data.wall_name
 		wall_menu.add_child(button)
 func _process(_delta):
-	
 	if dragging_wall and wall_preview:
 		update_wall_direction(_delta)
 		wall_preview.global_position = get_global_mouse_position()
@@ -51,7 +74,7 @@ func pickup_wall(wall_data):
 		wall_preview = null
 		print("Cant Afford")
 		return
-	add_child(wall_preview)
+	interactables.add_child(wall_preview)
 	
 	wall_preview.collision_shape.disabled = true
 	dragging_wall = true
@@ -86,9 +109,6 @@ func drop_wall():
 		wall_preview.queue_free()
 		dragging_wall = false
 		return
-
-	money -= wall_preview.wall_data.cost
-	update_money_display()
 	# create a new reference to wall instance so it isnt controlled by inputs anymore
 	var placed_wall = wall_preview
 	wall_preview = null
@@ -104,7 +124,24 @@ func drop_wall():
 		adjusted_rotation_for_wrapping,
 		0.08
 	)
+	#check if ball is in placed wall
+	if placed_wall.placement_area.has_overlapping_bodies():
+		placed_wall.queue_free()
+		return
+	money -= placed_wall.wall_data.cost
+	update_money_display()
 	await placed_wall_rotation_tween.finished
 	placed_wall.sprite.modulate.a = 1
 	placed_wall.collision_shape.disabled = false
-	
+
+
+
+func _on_boundaries_body_entered(body: Node2D) -> void:
+	game_over()
+
+
+
+func _on_start_game_pressed() -> void:
+	start_game()
+func _on_restart_game_pressed() -> void:
+	start_game()

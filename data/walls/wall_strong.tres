@@ -8,5 +8,5 @@ wall_name = "Strong"
 cost = 5.0
 money_per_hit = 0.5
 max_health = 10
-width = Vector2(2, 1)
+size = Vector2(2, 0.5)
 metadata/_custom_type_script = "uid://cu4idgddy6of7"

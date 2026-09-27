@@ -9,36 +9,83 @@
 [ext_resource type="Resource" uid="uid://de7kxvb7slkqq" path="res://data/walls/wall_brittle.tres" id="5_g4kob"]
 [ext_resource type="Resource" uid="uid://n77kqsav072o" path="res://data/walls/wall_strong.tres" id="6_qy1jj"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n048l"]
+size = Vector2(576, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4dv3d"]
+size = Vector2(576, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jrx5g"]
+size = Vector2(20, 324)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_scx6k"]
+size = Vector2(20, 324)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u2d4l"]
 size = Vector2(158, 123)
 
-[node name="Game" type="Node2D" unique_id=516437375 node_paths=PackedStringArray("money_label", "wall_menu")]
+[sub_resource type="LabelSettings" id="LabelSettings_u2d4l"]
+font_size = 120
+
+[sub_resource type="LabelSettings" id="LabelSettings_400sg"]
+font_size = 120
+font_color = Color(1, 0, 0, 1)
+
+[node name="Game" type="Node2D" unique_id=516437375 node_paths=PackedStringArray("interactables", "money_label", "wall_menu", "game_UI", "main_menu", "game_over_menu")]
 script = ExtResource("1_cpr0p")
-money_label = NodePath("UI/Money")
+interactables = NodePath("Interactables")
+money_label = NodePath("UI/GameUI2/Money")
 money = 5
 wall_scene = ExtResource("2_qbsmt")
 wall_button_scene = ExtResource("3_400sg")
 wall_datas = Array[ExtResource("3_kiw3p")]([ExtResource("4_400sg"), ExtResource("5_g4kob"), ExtResource("6_qy1jj")])
-wall_menu = NodePath("UI/WallMenu")
+wall_menu = NodePath("UI/GameUI2/WallMenu")
+game_UI = NodePath("UI/GameUI2")
+main_menu = NodePath("UI/MainMenu")
+game_over_menu = NodePath("UI/GameOver")
+ball_scene = ExtResource("1_ibkli")
 
-[node name="Ball" parent="." unique_id=502527504 instance=ExtResource("1_ibkli")]
-position = Vector2(558, 300)
+[node name="Interactables" type="Node2D" parent="." unique_id=1285842360]
+
+[node name="Boundaries" type="Area2D" parent="." unique_id=1843695915]
+position = Vector2(114, 111)
+scale = Vector2(2, 2)
+collision_layer = 0
+
+[node name="Top" type="CollisionShape2D" parent="Boundaries" unique_id=1661921062]
+position = Vector2(231, -65.5)
+shape = SubResource("RectangleShape2D_n048l")
+
+[node name="Bottom" type="CollisionShape2D" parent="Boundaries" unique_id=870849528]
+position = Vector2(231, 278.5)
+shape = SubResource("RectangleShape2D_4dv3d")
+
+[node name="Right" type="CollisionShape2D" parent="Boundaries" unique_id=1649509474]
+position = Vector2(529, 106.5)
+shape = SubResource("RectangleShape2D_jrx5g")
+
+[node name="Left" type="CollisionShape2D" parent="Boundaries" unique_id=599571518]
+position = Vector2(-67, 106.5)
+shape = SubResource("RectangleShape2D_scx6k")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=277768052]
 
-[node name="Money" type="Label" parent="UI" unique_id=1672510182]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+[node name="GameUI2" type="Control" parent="UI" unique_id=27135390]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -23.0
-grow_horizontal = 0
-grow_vertical = 0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Money" type="Label" parent="UI/GameUI2" unique_id=1672510182]
+layout_mode = 1
+offset_right = 80.0
+offset_bottom = 23.0
 text = "Money: 10"
 
-[node name="WallMenu" type="VBoxContainer" parent="UI" unique_id=440836456]
+[node name="WallMenu" type="VBoxContainer" parent="UI/GameUI2" unique_id=440836456]
+layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -46,18 +93,92 @@ offset_left = -158.0
 offset_bottom = 122.0
 grow_horizontal = 0
 
-[node name="StaticBody2D" type="StaticBody2D" parent="UI/WallMenu" unique_id=1413849177]
+[node name="StaticBody2D" type="StaticBody2D" parent="UI/GameUI2/WallMenu" unique_id=1413849177]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/WallMenu/StaticBody2D" unique_id=1575690781]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/GameUI2/WallMenu/StaticBody2D" unique_id=1575690781]
 position = Vector2(79, 61.5)
 shape = SubResource("RectangleShape2D_u2d4l")
 
-[node name="Wall" parent="." unique_id=726872955 instance=ExtResource("2_qbsmt")]
-position = Vector2(551, 396)
-wall_data = ExtResource("4_400sg")
+[node name="MainMenu" type="Panel" parent="UI" unique_id=1539101916]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Wall2" parent="." unique_id=902963933 instance=ExtResource("2_qbsmt")]
-position = Vector2(559, 198)
-wall_data = ExtResource("4_400sg")
+[node name="Lockdown" type="Label" parent="UI/MainMenu" unique_id=1312571731]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -254.0
+offset_top = -170.0
+offset_right = 254.0
+offset_bottom = -68.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "LOCKDOWN"
+label_settings = SubResource("LabelSettings_u2d4l")
+
+[node name="StartGame" type="Button" parent="UI/MainMenu" unique_id=1271535726]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -117.0
+offset_top = -23.0
+offset_right = 117.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "START GAME"
+
+[node name="GameOver" type="Panel" parent="UI" unique_id=1385950217]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOverText" type="Label" parent="UI/GameOver" unique_id=9035440]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -345.0
+offset_top = -163.0
+offset_right = 346.0
+offset_bottom = -69.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_400sg")
+
+[node name="RestartGame" type="Button" parent="UI/GameOver" unique_id=1746338215]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -117.0
+offset_top = -23.0
+offset_right = 117.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "RESTART"
+
+[connection signal="body_entered" from="Boundaries" to="." method="_on_boundaries_body_entered"]
+[connection signal="pressed" from="UI/MainMenu/StartGame" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="UI/GameOver/RestartGame" to="." method="_on_restart_game_pressed"]

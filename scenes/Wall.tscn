@@ -9,14 +9,16 @@ size = Vector2(15.142857, 4)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n048l"]
 size = Vector2(15.142864, 4.0000005)
 
-[node name="Wall" type="StaticBody2D" unique_id=726872955 node_paths=PackedStringArray("sprite", "collision_shape", "placement_area")]
+[node name="Wall" type="StaticBody2D" unique_id=726872955 node_paths=PackedStringArray("sprite", "collision_shape", "placement_area", "placement_area_collision_shape")]
 scale = Vector2(7, 7)
-collision_layer = 2
+collision_layer = 3
 collision_mask = 0
 script = ExtResource("1_awoh5")
 sprite = NodePath("Sprite2D")
 collision_shape = NodePath("CollisionShape2D")
 placement_area = NodePath("PlacementArea")
+placement_area_collision_shape = NodePath("PlacementArea/CollisionShape2D")
+wall_scale = 5.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=518890193]
 position = Vector2(-1.9073486e-06, 0)
