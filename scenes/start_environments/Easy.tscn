@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://qd2wtc6gqylt"]
+
+[ext_resource type="PackedScene" uid="uid://dl4wu287ysq0h" path="res://scenes/Wall.tscn" id="1_1bcl1"]
+[ext_resource type="Resource" uid="uid://de7kxvb7slkqq" path="res://data/walls/wall_brittle.tres" id="2_akfmm"]
+[ext_resource type="Resource" uid="uid://n77kqsav072o" path="res://data/walls/wall_strong.tres" id="3_k6rf2"]
+
+[node name="StartEnvEasy" type="Node2D" unique_id=197229765]
+
+[node name="Wall" parent="." unique_id=726872955 instance=ExtResource("1_1bcl1")]
+position = Vector2(580, 441)
+wall_data = ExtResource("2_akfmm")
+
+[node name="Wall2" parent="." unique_id=1137385226 instance=ExtResource("1_1bcl1")]
+position = Vector2(580, 277)
+wall_data = ExtResource("2_akfmm")
+
+[node name="Wall3" parent="." unique_id=943350297 instance=ExtResource("1_1bcl1")]
+position = Vector2(580, 528.00006)
+wall_data = ExtResource("3_k6rf2")
+
+[node name="Wall4" parent="." unique_id=1390577305 instance=ExtResource("1_1bcl1")]
+position = Vector2(580, 175)
+wall_data = ExtResource("3_k6rf2")

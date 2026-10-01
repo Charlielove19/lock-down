@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="WallData" format=3 uid="uid://er57vi0txen0"]
 
 [ext_resource type="Script" uid="uid://cu4idgddy6of7" path="res://scripts/wall_data.gd" id="1_m7854"]
+[ext_resource type="Texture2D" uid="uid://6gyrme7f5mlu" path="res://assets/pixel-platformer-blocks/Tiles/Stone/tile_0003.png" id="2_42vnk"]
 
 [resource]
 script = ExtResource("1_m7854")
@@ -9,4 +10,5 @@ cost = 2.0
 money_per_hit = 1.0
 max_health = 5
 size = Vector2(3, 0.5)
+texture = ExtResource("2_42vnk")
 metadata/_custom_type_script = "uid://cu4idgddy6of7"

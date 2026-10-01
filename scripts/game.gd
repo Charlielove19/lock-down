@@ -1,5 +1,17 @@
 extends Node2D
 @export var interactables: Node2D
+#State Variables
+var game_over_flag: bool
+
+enum Difficulty{
+	EASY,
+	NORMAL,
+	HARD,
+	IMPOSSIBLE
+}
+@export var difficulty: Difficulty
+@export var start_scenes: Array[PackedScene]
+
 #money variables
 @export var money_label: Label
 @export var money = 4
@@ -27,14 +39,20 @@ var cant_drop: bool
 @export var ball_scene: PackedScene
 
 func start_game():
+	
+	game_over_flag = false
 	main_menu.visible = false
 	game_over_menu.visible = false
 	game_UI.visible = true
+	var start_scene = start_scenes[difficulty]
+	var start_env = start_scene.instantiate()
+	interactables.add_child(start_env)
 	var ball = ball_scene.instantiate()
 	ball.position = get_viewport_rect().get_center()
 	interactables.add_child(ball)
 func game_over():
 	game_over_menu.visible = true
+	game_over_flag = true
 	clear_game()
 func clear_game():
 	game_UI.visible = false
@@ -45,11 +63,7 @@ func _ready():
 	game_over_menu.visible = false
 	game_UI.visible = false
 	update_money_display()
-	for wall_data in wall_datas:
-		var button = wall_button_scene.instantiate()
-		button.wall_data = wall_data
-		button.text = wall_data.wall_name
-		wall_menu.add_child(button)
+	create_wall_menu()
 func _process(_delta):
 	if dragging_wall and wall_preview:
 		update_wall_direction(_delta)
@@ -66,14 +80,14 @@ func add_money(amount):
 func update_money_display():
 	money_label.text = "Money: " + str(money)
 func pickup_wall(wall_data):
-	wall_preview = wall_scene.instantiate()
-	wall_preview.wall_data = wall_data
-	
-	if money < wall_preview.wall_data.cost:
-		wall_preview.queue_free()
-		wall_preview = null
+	if game_over_flag:
+		return
+	if money < wall_data.cost:
 		print("Cant Afford")
 		return
+	
+	wall_preview = wall_scene.instantiate()
+	wall_preview.wall_data = wall_data
 	interactables.add_child(wall_preview)
 	
 	wall_preview.collision_shape.disabled = true
@@ -103,6 +117,8 @@ func update_wall_direction(delta):
 		25*delta
 	)
 func drop_wall():
+	if game_over_flag:
+		return
 	if wall_preview == null:
 		return
 	if cant_drop:
@@ -134,7 +150,12 @@ func drop_wall():
 	placed_wall.sprite.modulate.a = 1
 	placed_wall.collision_shape.disabled = false
 
-
+func create_wall_menu():
+	for wall_data in wall_datas:
+		var button = wall_button_scene.instantiate()
+		button.wall_data = wall_data
+		button.text = wall_data.wall_name
+		wall_menu.add_child(button)
 
 func _on_boundaries_body_entered(body: Node2D) -> void:
 	game_over()

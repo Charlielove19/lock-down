@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://drhv1u2aojvj5"]
+
+[ext_resource type="PackedScene" uid="uid://dl4wu287ysq0h" path="res://scenes/Wall.tscn" id="1_3aslu"]
+[ext_resource type="Resource" uid="uid://de7kxvb7slkqq" path="res://data/walls/wall_brittle.tres" id="2_lhxlr"]
+
+[node name="StartEnvEasy" type="Node2D" unique_id=197229765]
+
+[node name="Wall" parent="." unique_id=726872955 instance=ExtResource("1_3aslu")]
+position = Vector2(580, 441)
+wall_data = ExtResource("2_lhxlr")
+
+[node name="Wall2" parent="." unique_id=1137385226 instance=ExtResource("1_3aslu")]
+position = Vector2(580, 212)
+wall_data = ExtResource("2_lhxlr")

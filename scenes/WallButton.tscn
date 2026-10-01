@@ -5,9 +5,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_400sg"]
 size = Vector2(8, 8)
 
-[node name="WallButton" type="Button" unique_id=134368689 node_paths=PackedStringArray("collision_shape")]
+[node name="WallButton" type="Button" unique_id=134368689]
 script = ExtResource("1_3pt0m")
-collision_shape = NodePath("Area2D/CollisionShape2D")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=619697338]
 collision_layer = 3
