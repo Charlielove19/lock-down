@@ -2,7 +2,9 @@ extends Node2D
 @export var interactables: Node2D
 #State Variables
 var game_over_flag: bool
-
+#coin variables
+@export var coin_spawner:PackedScene
+#difficulty variables
 enum Difficulty{
 	EASY,
 	NORMAL,
@@ -14,7 +16,8 @@ enum Difficulty{
 
 #money variables
 @export var money_label: Label
-@export var money = 4
+@export var start_money: int
+var money = 4
 
 #wall variables
 @export var wall_scene: PackedScene
@@ -39,7 +42,9 @@ var cant_drop: bool
 @export var ball_scene: PackedScene
 
 func start_game():
-	
+	money = start_money
+	var instantiated_coin_spawner = coin_spawner.instantiate()
+	interactables.add_child(instantiated_coin_spawner)
 	game_over_flag = false
 	main_menu.visible = false
 	game_over_menu.visible = false

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bakc8q4h00h3b"]
+
+[ext_resource type="Script" uid="uid://bxa4m1c450ua2" path="res://scripts/coin_spawner.gd" id="1_i4dud"]
+[ext_resource type="PackedScene" uid="uid://4wxrxo7nestl" path="res://scenes/Coin.tscn" id="2_2i6p1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1gysy"]
+size = Vector2(1056, 521)
+
+[node name="CoinSpawner" type="Area2D" unique_id=1988217791 node_paths=PackedStringArray("area")]
+script = ExtResource("1_i4dud")
+coin = ExtResource("2_2i6p1")
+area = NodePath("SpawnArea")
+
+[node name="SpawnArea" type="CollisionShape2D" parent="." unique_id=2026140510]
+position = Vector2(570, 326.5)
+shape = SubResource("RectangleShape2D_1gysy")

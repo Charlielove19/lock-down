@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c1a2bs4hnphvx" path="res://scripts/game.gd" id="1_cpr0p"]
 [ext_resource type="PackedScene" uid="uid://cnpaojfl3fuuw" path="res://scenes/Ball.tscn" id="1_ibkli"]
 [ext_resource type="PackedScene" uid="uid://qd2wtc6gqylt" path="res://scenes/start_environments/Easy.tscn" id="2_3xj3m"]
+[ext_resource type="PackedScene" uid="uid://bakc8q4h00h3b" path="res://scenes/Coin_spawner.tscn" id="2_7ua8r"]
 [ext_resource type="PackedScene" uid="uid://dl4wu287ysq0h" path="res://scenes/Wall.tscn" id="2_qbsmt"]
 [ext_resource type="PackedScene" uid="uid://bj5clrmyfcmpx" path="res://scenes/WallButton.tscn" id="3_400sg"]
 [ext_resource type="Script" uid="uid://cu4idgddy6of7" path="res://scripts/wall_data.gd" id="3_kiw3p"]
@@ -38,10 +39,10 @@ font_color = Color(1, 0, 0, 1)
 [node name="Game" type="Node2D" unique_id=516437375 node_paths=PackedStringArray("interactables", "money_label", "wall_menu", "game_UI", "main_menu", "game_over_menu")]
 script = ExtResource("1_cpr0p")
 interactables = NodePath("Interactables")
-difficulty = 3
+coin_spawner = ExtResource("2_7ua8r")
 start_scenes = Array[PackedScene]([ExtResource("2_3xj3m"), ExtResource("3_mcffj"), ExtResource("4_2rd6h"), ExtResource("5_mcffj")])
 money_label = NodePath("UI/GameUI2/Money")
-money = 5
+start_money = 5
 wall_scene = ExtResource("2_qbsmt")
 wall_button_scene = ExtResource("3_400sg")
 wall_datas = Array[ExtResource("3_kiw3p")]([ExtResource("4_400sg"), ExtResource("5_g4kob"), ExtResource("6_qy1jj")])
