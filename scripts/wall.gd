@@ -5,7 +5,8 @@ extends StaticBody2D
 		wall_data = value
 		if is_node_ready():
 			apply_wall_data(wall_data)
-	
+
+
 
 
 var health: int
@@ -30,8 +31,8 @@ func update_damage_visual():
 	var health_ratio = float(health)/float(wall_data.max_health)
 	sprite.modulate = Color.RED.lerp(Color.GREEN, health_ratio)
 	
-func apply_wall_data(wall_data):
-	if wall_data == null:
+func apply_wall_data(wall_data_r):
+	if wall_data_r == null:
 		return
 	
 	sprite.texture = wall_data.texture

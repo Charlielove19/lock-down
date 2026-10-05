@@ -18,6 +18,7 @@ enum Difficulty{
 @export var money_label: Label
 @export var start_money: int
 var money = 4
+@export var money_particle_scene: PackedScene
 
 #wall variables
 @export var wall_scene: PackedScene
@@ -43,18 +44,23 @@ var cant_drop: bool
 
 func start_game():
 	money = start_money
-	var instantiated_coin_spawner = coin_spawner.instantiate()
-	interactables.add_child(instantiated_coin_spawner)
 	game_over_flag = false
 	main_menu.visible = false
 	game_over_menu.visible = false
 	game_UI.visible = true
+	
+	var instantiated_coin_spawner = coin_spawner.instantiate()
+	interactables.add_child(instantiated_coin_spawner)
+	
 	var start_scene = start_scenes[difficulty]
 	var start_env = start_scene.instantiate()
 	interactables.add_child(start_env)
+	
 	var ball = ball_scene.instantiate()
 	ball.position = get_viewport_rect().get_center()
 	interactables.add_child(ball)
+	
+	
 func game_over():
 	game_over_menu.visible = true
 	game_over_flag = true
@@ -79,7 +85,16 @@ func _process(_delta):
 		else:
 			wall_preview.sprite.modulate = Color.GREEN
 		wall_preview.sprite.modulate.a = 0.5
-func add_money(amount):
+func spawn_money_particle(position_r:Vector2, value):
+	var money_particle = money_particle_scene.instantiate()
+	money_particle.set_text(value)
+	money_particle.position = position_r
+	game_UI.add_child(money_particle)
+func add_money(amount, position_r:Vector2):
+	if position_r == null:
+		pass
+	else:
+		spawn_money_particle(position_r, amount)
 	money+=amount
 	update_money_display()
 func update_money_display():
@@ -149,8 +164,7 @@ func drop_wall():
 	if placed_wall.placement_area.has_overlapping_bodies():
 		placed_wall.queue_free()
 		return
-	money -= placed_wall.wall_data.cost
-	update_money_display()
+	add_money(-placed_wall.wall_data.cost, placed_wall.position) 
 	await placed_wall_rotation_tween.finished
 	placed_wall.sprite.modulate.a = 1
 	placed_wall.collision_shape.disabled = false
@@ -162,7 +176,7 @@ func create_wall_menu():
 		button.text = wall_data.wall_name
 		wall_menu.add_child(button)
 
-func _on_boundaries_body_entered(body: Node2D) -> void:
+func _on_boundaries_body_entered(_body: Node2D) -> void:
 	game_over()
 
 

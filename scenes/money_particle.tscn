@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://ccvo861w0c03q"]
+
+[ext_resource type="Script" uid="uid://b0llvartyyv45" path="res://scripts/money_riser.gd" id="1_wrsp1"]
+
+[node name="MoneyParticle" type="Control" unique_id=1133191402 node_paths=PackedStringArray("text")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wrsp1")
+speed = 3.0
+time_alive = 0.5
+text = NodePath("Label")
+
+[node name="Label" type="Label" parent="." unique_id=773113458]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

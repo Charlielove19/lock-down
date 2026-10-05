@@ -13,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://de7kxvb7slkqq" path="res://data/walls/wall_brittle.tres" id="5_g4kob"]
 [ext_resource type="PackedScene" uid="uid://bem1m2248dg4w" path="res://scenes/start_environments/Impossible.tscn" id="5_mcffj"]
 [ext_resource type="Resource" uid="uid://n77kqsav072o" path="res://data/walls/wall_strong.tres" id="6_qy1jj"]
+[ext_resource type="PackedScene" uid="uid://ccvo861w0c03q" path="res://scenes/money_particle.tscn" id="7_7ua8r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n048l"]
 size = Vector2(576, 20)
@@ -43,6 +44,7 @@ coin_spawner = ExtResource("2_7ua8r")
 start_scenes = Array[PackedScene]([ExtResource("2_3xj3m"), ExtResource("3_mcffj"), ExtResource("4_2rd6h"), ExtResource("5_mcffj")])
 money_label = NodePath("UI/GameUI2/Money")
 start_money = 5
+money_particle_scene = ExtResource("7_7ua8r")
 wall_scene = ExtResource("2_qbsmt")
 wall_button_scene = ExtResource("3_400sg")
 wall_datas = Array[ExtResource("3_kiw3p")]([ExtResource("4_400sg"), ExtResource("5_g4kob"), ExtResource("6_qy1jj")])
